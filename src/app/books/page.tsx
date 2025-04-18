@@ -118,7 +118,7 @@ export default function BookCatalogPage() {
                 <SelectValue placeholder="Category" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Categories</SelectItem>
+                <SelectItem value="all">All Categories</SelectItem>
                 {categories.map((category) => (
                   <SelectItem key={category} value={category}>
                     {category}
@@ -132,7 +132,7 @@ export default function BookCatalogPage() {
                 <SelectValue placeholder="Availability" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All</SelectItem>
+                <SelectItem value="all">All</SelectItem>
                 <SelectItem value="available">Available</SelectItem>
                 <SelectItem value="unavailable">Unavailable</SelectItem>
               </SelectContent>

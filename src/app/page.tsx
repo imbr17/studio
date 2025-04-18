@@ -73,7 +73,7 @@ export default function Home() {
   const [totalBooks, setTotalBooks] = useState(1234);
   const [activeMembers, setActiveMembers] = useState(567);
   const [dailyIssued, setDailyIssued] = useState(89);
-  const lastUpdated = Date.now();
+  const [lastUpdated, setLastUpdated] = useState(new Date());
   const [carouselIndex, setCarouselIndex] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
   const [categoryFilter, setCategoryFilter] = useState("");
@@ -148,7 +148,13 @@ export default function Home() {
     }
   };
 
-  const lastUpdatedClient = new Date(lastUpdated).toLocaleDateString() + ' ' + new Date(lastUpdated).toLocaleTimeString();
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setLastUpdated(new Date());
+        }, 60000); // Update every minute
+
+        return () => clearInterval(timer);
+    }, []);
 
   return (
     <div className="container mx-auto py-10">
@@ -316,7 +322,7 @@ export default function Home() {
           </div>
             {/* Last Updated */}
             <div className="text-sm text-gray-500">
-              Last Updated: {lastUpdatedClient}
+              Last Updated: {lastUpdated.toLocaleDateString()} {lastUpdated.toLocaleTimeString()}
             </div>
 
           {/* Quick Links */}
@@ -390,4 +396,3 @@ export default function Home() {
     </div>
   );
 }
-
