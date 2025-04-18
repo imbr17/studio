@@ -35,7 +35,7 @@ export default function RootLayout({
                 <SidebarMenu>
                   <SidebarMenuItem>
                     <Link href="/" passHref legacyBehavior>
-                      <SidebarMenuButton >
+                      <SidebarMenuButton>
                         <Icons.home className="mr-2 h-4 w-4" />
                         <span>Home</span>
                       </SidebarMenuButton>
@@ -91,3 +91,4 @@ export default function RootLayout({
     </html>
   );
 }
+
