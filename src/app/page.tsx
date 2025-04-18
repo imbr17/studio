@@ -143,6 +143,8 @@ export default function Home() {
       carouselRef.current.scrollTo({
         left: newIndex * carouselRef.current.offsetWidth,
         behavior: 'smooth',
+        
+        
       });
     }
   };
