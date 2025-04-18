@@ -4,7 +4,7 @@ import Link from 'next/link';
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {Button} from "@/components/ui/button";
 import {useSidebar} from "@/components/ui/sidebar";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {Input} from "@/components/ui/input";
 import {Icons} from "@/components/icons";
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
@@ -19,10 +19,12 @@ const categories = [
 ];
 
 const featuredBooks = [
-  {id: 1, title: "The Secret Garden 🌸", author: "Frances Hodgson Burnett", imageUrl: "https://picsum.photos/id/10/200/300"},
-  {id: 2, title: "Little Women 👧", author: "Louisa May Alcott", imageUrl: "https://picsum.photos/id/11/200/300"},
-  {id: 3, title: "Anne of Green Gables 👒", author: "L.M. Montgomery", imageUrl: "https://picsum.photos/id/12/200/300"},
-  {id: 4, title: "The Call of the Wild 🐾", author: "Jack London", imageUrl: "https://picsum.photos/id/13/200/300"},
+  {id: 1, title: "The Secret Garden 🌸", author: "Frances Hodgson Burnett", imageUrl: "https://picsum.photos/id/10/200/300", summary: "A young girl discovers a magical garden."},
+  {id: 2, title: "Little Women 👧", author: "Louisa May Alcott", imageUrl: "https://picsum.photos/id/11/200/300", summary: "The lives of four sisters during the Civil War."},
+  {id: 3, title: "Anne of Green Gables 👒", author: "L.M. Montgomery", imageUrl: "https://picsum.photos/id/12/200/300", summary: "An orphan girl finds a home on Prince Edward Island."},
+  {id: 4, title: "The Call of the Wild 🐾", author: "Jack London", imageUrl: "https://picsum.photos/id/13/200/300", summary: "A domesticated dog becomes a wild animal during the Klondike Gold Rush."},
+  {id: 5, title: "The Hobbit 🧙‍♂️", author: "J.R.R. Tolkien", imageUrl: "https://picsum.photos/id/14/200/300", summary: "A hobbit goes on an adventure to reclaim treasure."},
+  {id: 6, title: "Alice's Adventures in Wonderland 🐇", author: "Lewis Carroll", imageUrl: "https://picsum.photos/id/15/200/300", summary: "A girl falls into a fantasy world."},
 ];
 
 const quotes = [
@@ -65,6 +67,8 @@ export default function Home() {
   const [activeMembers, setActiveMembers] = useState(567);
   const [dailyIssued, setDailyIssued] = useState(89);
   const [lastUpdated, setLastUpdated] = useState(new Date());
+  const [carouselIndex, setCarouselIndex] = useState(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setOpen(false);
@@ -107,6 +111,34 @@ export default function Home() {
     // Set initial date only on client-side
     setLastUpdated(new Date());
   }, []);
+
+  // Carousel Functionality
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (carouselRef.current) {
+        const nextIndex = (carouselIndex + 1) % featuredBooks.length;
+        setCarouselIndex(nextIndex);
+        carouselRef.current.scrollTo({
+          left: nextIndex * carouselRef.current.offsetWidth,
+          behavior: 'smooth',
+        });
+      }
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, [carouselIndex]);
+
+  const handleManualScroll = (direction: number) => {
+    if (carouselRef.current) {
+      const newIndex = (carouselIndex + direction + featuredBooks.length) % featuredBooks.length;
+      setCarouselIndex(newIndex);
+      carouselRef.current.scrollTo({
+        left: newIndex * carouselRef.current.offsetWidth,
+        behavior: 'smooth',
+      });
+    }
+  };
+
 
   return (
     <div className="container mx-auto py-10">
@@ -219,7 +251,7 @@ export default function Home() {
           </div>
             {/* Last Updated */}
             <div className="text-sm text-gray-500">
-              Last Updated: {lastUpdated.toLocaleDateString()}
+              Last Updated: {lastUpdated.toLocaleDateString()} {lastUpdated.toLocaleTimeString()}
             </div>
 
           {/* Quick Links */}
@@ -238,24 +270,49 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Featured Books Slider */}
-          <div>
-            <h3 className="text-lg font-semibold mb-2 text-gray-700">New Arrivals ✨</h3>
-            <div className="flex gap-4 overflow-x-auto">
-              {featuredBooks.map((book) => (
+         {/* Featured Books Slider */}
+        <div>
+          <h3 className="text-lg font-semibold mb-2 text-gray-700">New Arrivals ✨</h3>
+          <div className="relative">
+            <div
+              ref={carouselRef}
+              className="flex gap-4 overflow-x-auto scroll-smooth snap-x"
+            >
+              {featuredBooks.map((book, index) => (
                 <div
                   key={book.id}
-                  className="w-48 flex-shrink-0 rounded-md shadow-md overflow-hidden hover:scale-105 transition-transform"
+                  className="w-64 flex-shrink-0 rounded-md shadow-md overflow-hidden hover:scale-105 transition-transform snap-start relative"
                 >
-                  <img src={book.imageUrl} alt={book.title} className="w-full h-32 object-cover"/>
+                  <img
+                    src={book.imageUrl}
+                    alt={book.title}
+                    className="w-full h-48 object-cover"
+                  />
                   <div className="p-3 bg-white">
                     <h4 className="font-semibold text-gray-800">{book.title}</h4>
                     <p className="text-gray-600">By {book.author}</p>
                   </div>
+                  {/* Hover effect for summary and borrow button */}
+                  <div className="absolute inset-0 bg-black/75 text-white p-3 flex flex-col justify-center items-center opacity-0 hover:opacity-100 transition-opacity">
+                    <p className="text-sm italic mb-2">{book.summary}</p>
+                    <Button size="sm">Borrow</Button>
+                  </div>
                 </div>
               ))}
             </div>
+            {/* Manual scroll buttons */}
+            <div className="absolute top-1/2 transform -translate-y-1/2 left-2">
+              <Button variant="ghost" size="icon" onClick={() => handleManualScroll(-1)}>
+                <Icons.arrowRight className="h-6 w-6 rotate-180"/>
+              </Button>
+            </div>
+            <div className="absolute top-1/2 transform -translate-y-1/2 right-2">
+              <Button variant="ghost" size="icon" onClick={() => handleManualScroll(1)}>
+                <Icons.arrowRight className="h-6 w-6"/>
+              </Button>
+            </div>
           </div>
+        </div>
 
           {/* Mini Book Quiz (Optional) */}
           <div>
@@ -268,6 +325,3 @@ export default function Home() {
     </div>
   );
 }
-
-
-
