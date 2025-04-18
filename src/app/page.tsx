@@ -219,7 +219,7 @@ export default function Home() {
           </div>
             {/* Last Updated */}
             <div className="text-sm text-gray-500">
-              Last Updated: {lastUpdated.toLocaleTimeString()}
+              Last Updated: {lastUpdated.toLocaleDateString()}
             </div>
 
           {/* Quick Links */}
