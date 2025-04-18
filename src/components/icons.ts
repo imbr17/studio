@@ -1,4 +1,4 @@
-import {ArrowRight, Book, Check, ChevronsUpDown, Circle, Copy, Edit, ExternalLink, File, HelpCircle, Home, Loader2, Lock, Mail, MessageSquare, Moon, Plus, PlusCircle, Search, Server, Settings, Share2, Shield, Sun, Trash, User, X, Workflow} from 'lucide-react';
+import {ArrowRight, Book, Check, ChevronsUpDown, Circle, Copy, Edit, ExternalLink, File, HelpCircle, Home, Loader2, Lock, Mail, MessageSquare, Moon, Plus, PlusCircle, Search, Server, Settings, Share2, Shield, Sun, Trash, User, X, Workflow, BookOpen} from 'lucide-react';
 
 const Icons = {
   arrowRight: ArrowRight,
@@ -30,6 +30,7 @@ const Icons = {
   spinner: Loader2,
   trash: Trash,
   user: User,
+  bookOpen: BookOpen,
 };
 
 export {Icons};
