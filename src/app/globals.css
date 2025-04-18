@@ -5,7 +5,7 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
   /* Replace 'path-to-your-image.jpg' with the actual path to your image */
-  background-image: url('https://picsum.photos/id/39/1920/1080');
+  background-image: url('https://images.unsplash.com/photo-1507842214779-1854c3ac92d9?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -13,19 +13,19 @@ body {
 
 @layer base {
   :root {
-    --background: 220 20% 94%;
+    --background: 220 23% 96%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
-    --primary: 206 68% 54%; /* Adjusted to a more suitable color for readability */
+    --primary: 206 68% 44%; /* Adjusted to a more suitable color for readability */
     --primary-foreground: 0 0% 98%;
     --secondary: 0 0% 96.1%;
     --secondary-foreground: 0 0% 9%;
     --muted: 0 0% 96.1%;
     --muted-foreground: 0 0% 45.1%;
-    --accent: 48 85% 58%;
+    --accent: 48 85% 48%;
     --accent-foreground: 0 0% 9%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
@@ -91,3 +91,6 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+
+    
