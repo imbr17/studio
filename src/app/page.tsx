@@ -84,8 +84,7 @@ export default function Home({}: HomePageProps) {
   const [yearFilter, setYearFilter] = useState("");
   const [ratingFilter, setRatingFilter] = useState("");
   const [availabilityFilter, setAvailabilityFilter] = useState("");
-  const [lastUpdated, setLastUpdated] = useState(new Date());
-
+  
 
   useEffect(() => {
     setOpen(false);
@@ -111,13 +110,6 @@ export default function Home({}: HomePageProps) {
         return testimonials[nextIndex];
       });
     }, 7000); // Change testimonial every 7 seconds
-
-    return () => clearInterval(intervalId);
-  }, []);
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setLastUpdated(new Date()); // Update every minute
-    }, 60000);
 
     return () => clearInterval(intervalId);
   }, []);
