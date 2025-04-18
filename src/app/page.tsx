@@ -314,10 +314,6 @@ export default function Home({}: HomePageProps) {
               <CardContent className="text-2xl font-bold text-blue-800">{dailyIssued}</CardContent>
             </Card>
           </div>
-            {/* Last Updated */}
-            <div className="text-sm text-gray-500">
-              Last Updated: {new Date().toLocaleDateString()} {new Date().toLocaleTimeString()}
-            </div>
 
           {/* Quick Links */}
           <div>
