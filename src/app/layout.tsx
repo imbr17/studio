@@ -5,6 +5,7 @@ import {SidebarProvider, Sidebar, SidebarContent, SidebarMenu, SidebarMenuItem, 
 import Link from "next/link";
 import { Icons } from "@/components/icons";
 import { Button } from '@/components/ui/button';
+import {DateTimeDisplay} from "@/components/date-time-display";
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -16,16 +17,19 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
-export const metadata: Metadata = {
-  title: 'Adjust Library',
-  description: 'Library Management System',
-};
+async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: 'Adjust Library',
+    description: 'Library Management System',
+  };
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  'use client';
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
@@ -145,4 +149,5 @@ export default function RootLayout({
     </html>
   );
 }
+export { generateMetadata };
 

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import Link from 'next/link';
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
@@ -64,7 +64,25 @@ const testimonials = [
   },
 ];
 
-export default function Home() {
+function DateTimeDisplay() {
+  const [currentDateTime, setCurrentDateTime] = useState(new Date());
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentDateTime(new Date());
+    }, 60000); // Update every minute
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  const formattedDateTime = currentDateTime.toLocaleDateString() + ' ' + currentDateTime.toLocaleTimeString();
+  return <>{formattedDateTime}</>;
+}
+
+interface HomePageProps {
+}
+
+export default function Home({}: HomePageProps) {
   const {setOpen} = useSidebar();
   const [searchQuery, setSearchQuery] = useState("");
   const [darkMode, setDarkMode] = useState(false);
@@ -73,9 +91,8 @@ export default function Home() {
   const [totalBooks, setTotalBooks] = useState(1234);
   const [activeMembers, setActiveMembers] = useState(567);
   const [dailyIssued, setDailyIssued] = useState(89);
-  const [lastUpdated, setLastUpdated] = useState(new Date());
-  const [carouselIndex, setCarouselIndex] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
+  const [carouselIndex, setCarouselIndex] = useState(0);
   const [categoryFilter, setCategoryFilter] = useState("");
   const [authorFilter, setAuthorFilter] = useState("");
   const [yearFilter, setYearFilter] = useState("");
@@ -142,19 +159,9 @@ export default function Home() {
       carouselRef.current.scrollTo({
         left: newIndex * carouselRef.current.offsetWidth,
         behavior: 'smooth',
-        
-        
       });
     }
   };
-
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setLastUpdated(new Date());
-        }, 60000); // Update every minute
-
-        return () => clearInterval(timer);
-    }, []);
 
   return (
     <div className="container mx-auto py-10">
@@ -322,7 +329,7 @@ export default function Home() {
           </div>
             {/* Last Updated */}
             <div className="text-sm text-gray-500">
-              Last Updated: {lastUpdated.toLocaleDateString()} {lastUpdated.toLocaleTimeString()}
+              Last Updated: <DateTimeDisplay />
             </div>
 
           {/* Quick Links */}
