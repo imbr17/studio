@@ -44,10 +44,6 @@ export default function LibraryInfoPage() {
               the information and research needs of students and faculty members.
             </p>
             <p className="text-gray-700">
-              Collection: Over 30,000+ books, 1,000+ e-books, 600+ print
-              periodicals, and 1,500+ theses/reports.
-            </p>
-            <p className="text-gray-700">
               Services: Reading rooms, reference services, e-books &amp;
               e-journals access, internet facilities, lending services, and
               Wi-Fi connectivity.
@@ -121,3 +117,4 @@ export default function LibraryInfoPage() {
     </div>
   );
 }
+
