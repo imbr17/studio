@@ -19,21 +19,21 @@ export default function Home() {
         <CardHeader>
           <div className="flex justify-between items-center">
             <CardTitle className="text-2xl">Welcome to Adjust Library</CardTitle>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 justify-end">
               <Link href="/info">
-                <Button size="sm">{`library info`}</Button>
+                <Button size="sm">library info</Button>
               </Link>
               <Link href="/books">
-                <Button size="sm">{`book catalog`}</Button>
+                <Button size="sm">book catalog</Button>
               </Link>
               <Link href="/librarians">
-                <Button size="sm">{`librarian info`}</Button>
+                <Button size="sm">librarian info</Button>
               </Link>
               <Link href="/user/login">
-                <Button variant="outline" size="sm">{`user login`}</Button>
+                <Button variant="outline" size="sm">user login</Button>
               </Link>
               <Link href="/admin/login">
-                <Button variant="secondary" size="sm">{`admin login`}</Button>
+                <Button variant="secondary" size="sm">admin login</Button>
               </Link>
             </div>
           </div>
