@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from 'next/link';
@@ -12,32 +11,47 @@ import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/compon
 
 // Placeholder data for categories and featured books
 const categories = [
-  {name: "Fiction", icon: "book"},
-  {name: "Mystery", icon: "book"},
-  {name: "Thriller", icon: "book"},
-  {name: "Science Fiction", icon: "book"},
-  {name: "Fantasy", icon: "book"},
+  {name: "Fiction 📚", icon: "book"},
+  {name: "Mystery 🕵️‍♂️", icon: "book"},
+  {name: "Thriller 🔪", icon: "book"},
+  {name: "Science Fiction 🚀", icon: "book"},
+  {name: "Fantasy 🐉", icon: "book"},
 ];
 
 const featuredBooks = [
-  {id: 1, title: "The Secret Garden", author: "Frances Hodgson Burnett", imageUrl: "https://picsum.photos/id/10/200/300"},
-  {id: 2, title: "Little Women", author: "Louisa May Alcott", imageUrl: "https://picsum.photos/id/11/200/300"},
-  {id: 3, title: "Anne of Green Gables", author: "L.M. Montgomery", imageUrl: "https://picsum.photos/id/12/200/300"},
-  {id: 4, title: "The Call of the Wild", author: "Jack London", imageUrl: "https://picsum.photos/id/13/200/300"},
+  {id: 1, title: "The Secret Garden 🌸", author: "Frances Hodgson Burnett", imageUrl: "https://picsum.photos/id/10/200/300"},
+  {id: 2, title: "Little Women 👧", author: "Louisa May Alcott", imageUrl: "https://picsum.photos/id/11/200/300"},
+  {id: 3, title: "Anne of Green Gables 👒", author: "L.M. Montgomery", imageUrl: "https://picsum.photos/id/12/200/300"},
+  {id: 4, title: "The Call of the Wild 🐾", author: "Jack London", imageUrl: "https://picsum.photos/id/13/200/300"},
 ];
 
 const quotes = [
   {
-    text: "The more that you read, the more things you will know. The more that you learn, the more places you’ll go.",
+    text: "The more that you read, the more things you will know. The more that you learn, the more places you’ll go. 🚀",
     author: "Dr. Seuss",
   },
   {
-    text: "A book is a dream you hold in your hand.",
+    text: "A book is a dream you hold in your hand. 📖✨",
     author: "Neil Gaiman",
   },
   {
-    text: "“I have always imagined that Paradise will be a kind of library.”",
+    text: "“I have always imagined that Paradise will be a kind of library.” 😇📚",
     author: "Jorge Luis Borges",
+  },
+];
+
+const testimonials = [
+  {
+    text: "The library has been an invaluable resource throughout my academic journey. Highly recommended! 👍",
+    author: "Alice Smith, Student",
+  },
+  {
+    text: "The librarians are always so helpful and kind. They make finding the right book a breeze! 😊",
+    author: "Bob Johnson, Student",
+  },
+  {
+    text: "I love the quiet atmosphere and the vast selection of books. Perfect for studying! 💯",
+    author: "Charlie Brown, Student",
   },
 ];
 
@@ -46,6 +60,7 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [darkMode, setDarkMode] = useState(false);
   const [quote, setQuote] = useState(quotes[0]);
+  const [testimonial, setTestimonial] = useState(testimonials[0]);
 
   useEffect(() => {
     setOpen(false);
@@ -63,6 +78,18 @@ export default function Home() {
     return () => clearInterval(intervalId);
   }, []);
 
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setTestimonial((prevTestimonial) => {
+        const currentIndex = testimonials.indexOf(prevTestimonial);
+        const nextIndex = (currentIndex + 1) % testimonials.length;
+        return testimonials[nextIndex];
+      });
+    }, 7000); // Change testimonial every 7 seconds
+
+    return () => clearInterval(intervalId);
+  }, []);
+
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
@@ -74,10 +101,12 @@ export default function Home() {
 
   return (
     <div className="container mx-auto py-10">
-      <Card>
+      <Card className="bg-gradient-to-br from-blue-100 to-green-50 shadow-xl">
         <CardHeader>
           <div className="flex justify-between items-center">
-            <CardTitle className="text-2xl">Welcome to Adjust Library</CardTitle>
+            <CardTitle className="text-2xl font-bold text-gray-800">
+              Welcome to Adjust Library! 📚
+            </CardTitle>
             <TooltipProvider>
               <div className="flex items-center space-x-2">
                 <Tooltip>
@@ -93,26 +122,34 @@ export default function Home() {
               </div>
             </TooltipProvider>
           </div>
-          <CardDescription>Your gateway to a world of books and knowledge.</CardDescription>
+          <CardDescription className="text-md text-gray-600">
+            Your gateway to a world of books and knowledge. Happy reading! 😊
+          </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-6">
           {/* Smart Search Bar */}
           <div className="relative">
             <Input
               type="search"
-              placeholder="Search for books..."
+              placeholder="Quick Search for books..."
               value={searchQuery}
               onChange={handleSearchChange}
+              className="rounded-full shadow-md"
             />
-            <Icons.search className="absolute top-3 right-3 h-5 w-5 text-muted-foreground"/>
+            <Icons.search className="absolute top-3 right-3 h-5 w-5 text-gray-500"/>
           </div>
 
           {/* Top Categories / Genres Section */}
           <div>
-            <h3 className="text-lg font-semibold mb-2">Top Categories</h3>
+            <h3 className="text-lg font-semibold mb-2 text-gray-700">Explore Top Categories</h3>
             <div className="flex flex-wrap gap-2">
               {categories.map((category) => (
-                <Button key={category.name} variant="secondary" size="sm">
+                <Button
+                  key={category.name}
+                  variant="secondary"
+                  size="sm"
+                  className="rounded-full hover:bg-yellow-200 transition-colors"
+                >
                   {category.name}
                 </Button>
               ))}
@@ -120,60 +157,65 @@ export default function Home() {
           </div>
 
           {/* Quote of the Day */}
-          <div className="mt-4">
-            <h3 className="text-lg font-semibold mb-2">Quote of the Day</h3>
-            <blockquote className="italic text-muted-foreground">
-              "{quote.text}" - {quote.author}
+          <div className="mt-4 p-4 bg-yellow-50 rounded-lg shadow-md">
+            <h3 className="text-lg font-semibold mb-2 text-gray-700">Quote of the Day 🌟</h3>
+            <blockquote className="italic text-gray-600">
+              "{testimonial.text}" - {testimonial.author}
             </blockquote>
           </div>
 
           {/* Live Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Card className="bg-secondary">
+            <Card className="bg-green-50 shadow-md hover:scale-105 transition-transform">
               <CardHeader>
-                <CardTitle>Total Books</CardTitle>
+                <CardTitle className="text-gray-700">Total Books 📚</CardTitle>
               </CardHeader>
-              <CardContent>1,234</CardContent>
+              <CardContent className="text-2xl font-bold text-green-800">1,234</CardContent>
             </Card>
-            <Card className="bg-secondary">
+            <Card className="bg-red-50 shadow-md hover:scale-105 transition-transform">
               <CardHeader>
-                <CardTitle>Members</CardTitle>
+                <CardTitle className="text-gray-700">Active Members 🧑‍🎓</CardTitle>
               </CardHeader>
-              <CardContent>567</CardContent>
+              <CardContent className="text-2xl font-bold text-red-800">567</CardContent>
             </Card>
-            <Card className="bg-secondary">
+            <Card className="bg-blue-50 shadow-md hover:scale-105 transition-transform">
               <CardHeader>
-                <CardTitle>Daily Issued</CardTitle>
+                <CardTitle className="text-gray-700">Daily Issued 📅</CardTitle>
               </CardHeader>
-              <CardContent>89</CardContent>
+              <CardContent className="text-2xl font-bold text-blue-800">89</CardContent>
             </Card>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-2">Quick Links</h3>
+            <h3 className="text-lg font-semibold mb-2 text-gray-700">Jump to</h3>
             <div className="flex flex-wrap gap-2 justify-start">
               <Link href="/admin/login">
-                <Button variant="outline" size="sm">admin login</Button>
+                <Button variant="outline" size="sm" className="rounded-full text-sm">admin login</Button>
               </Link>
               <Link href="/user/login">
-                <Button variant="outline" size="sm">member login</Button>
+                <Button variant="outline" size="sm" className="rounded-full text-sm">member login</Button>
               </Link>
               <Link href="/librarians">
-                <Button variant="outline" size="sm">librarian info</Button>
+                <Button variant="outline" size="sm" className="rounded-full text-sm">librarian info</Button>
               </Link>
             </div>
           </div>
 
           {/* Featured Books Slider */}
           <div>
-            <h3 className="text-lg font-semibold mb-2">Featured Books</h3>
+            <h3 className="text-lg font-semibold mb-2 text-gray-700">New Arrivals ✨</h3>
             <div className="flex gap-4 overflow-x-auto">
               {featuredBooks.map((book) => (
-                <div key={book.id} className="w-48 flex-shrink-0">
-                  <img src={book.imageUrl} alt={book.title} className="rounded-md mb-2 shadow"/>
-                  <h4 className="font-semibold">{book.title}</h4>
-                  <p className="text-muted-foreground">By {book.author}</p>
+                <div
+                  key={book.id}
+                  className="w-48 flex-shrink-0 rounded-md shadow-md overflow-hidden hover:scale-105 transition-transform"
+                >
+                  <img src={book.imageUrl} alt={book.title} className="w-full h-32 object-cover"/>
+                  <div className="p-3 bg-white">
+                    <h4 className="font-semibold text-gray-800">{book.title}</h4>
+                    <p className="text-gray-600">By {book.author}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -181,14 +223,12 @@ export default function Home() {
 
           {/* Mini Book Quiz (Optional) */}
           <div>
-            <h3 className="text-lg font-semibold mb-2">Mini Book Quiz</h3>
-            <p className="text-muted-foreground">Test your literary knowledge!</p>
-            <Button variant="link" size="sm">Take the Quiz</Button>
+            <h3 className="text-lg font-semibold mb-2 text-gray-700">Quick Quiz 🧠</h3>
+            <p className="text-gray-600">Test your literary knowledge!</p>
+            <Button variant="link" size="sm" className="text-blue-500">Take the Quiz</Button>
           </div>
         </CardContent>
       </Card>
     </div>
   );
 }
-
-
