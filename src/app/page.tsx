@@ -64,20 +64,6 @@ const testimonials = [
   },
 ];
 
-function DateTimeDisplay() {
-  const [currentDateTime, setCurrentDateTime] = useState(new Date());
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setCurrentDateTime(new Date());
-    }, 60000); // Update every minute
-
-    return () => clearInterval(intervalId);
-  }, []);
-
-  const formattedDateTime = currentDateTime.toLocaleDateString() + ' ' + currentDateTime.toLocaleTimeString();
-  return <>{formattedDateTime}</>;
-}
 
 interface HomePageProps {
 }
@@ -98,6 +84,8 @@ export default function Home({}: HomePageProps) {
   const [yearFilter, setYearFilter] = useState("");
   const [ratingFilter, setRatingFilter] = useState("");
   const [availabilityFilter, setAvailabilityFilter] = useState("");
+  const [lastUpdated, setLastUpdated] = useState(new Date());
+
 
   useEffect(() => {
     setOpen(false);
@@ -123,6 +111,13 @@ export default function Home({}: HomePageProps) {
         return testimonials[nextIndex];
       });
     }, 7000); // Change testimonial every 7 seconds
+
+    return () => clearInterval(intervalId);
+  }, []);
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setLastUpdated(new Date()); // Update every minute
+    }, 60000);
 
     return () => clearInterval(intervalId);
   }, []);
@@ -329,7 +324,7 @@ export default function Home({}: HomePageProps) {
           </div>
             {/* Last Updated */}
             <div className="text-sm text-gray-500">
-              Last Updated: <DateTimeDisplay />
+              Last Updated: {lastUpdated.toLocaleDateString()} {lastUpdated.toLocaleTimeString()}
             </div>
 
           {/* Quick Links */}
@@ -403,3 +398,4 @@ export default function Home({}: HomePageProps) {
     </div>
   );
 }
+
