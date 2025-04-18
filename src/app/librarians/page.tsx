@@ -25,7 +25,7 @@ export default function LibrarianInfoPage() {
       name: "Doraemon",
       role: "Head Librarian",
       shiftTime: "Monday to Friday, 9:00 AM – 5:00 PM",
-      imageUrl: "https://picsum.photos/id/237/200/300", // Ensure this path is correct
+      imageUrl: "https://pixabay.com/vectors/doraemon-cartoon-character-toy-4553920/", // Ensure this path is correct
       color: "#1E90FF", // Blue
     },
     {
