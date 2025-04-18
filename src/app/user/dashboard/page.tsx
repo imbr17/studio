@@ -2,16 +2,33 @@
 
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {useSidebar} from "@/components/ui/sidebar";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {Button} from "@/components/ui/button";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 
 export default function UserDashboardPage() {
   const {setOpen} = useSidebar();
-
-  useEffect(() => {
-    setOpen(false);
-  }, [setOpen]);
-
+  const [issuedBooks, setIssuedBooks] = useState([
+    {title: "The Lord of the Rings", returnDate: "2024-08-01", fineWarning: false},
+    {title: "Pride and Prejudice", returnDate: "2024-07-25", fineWarning: true},
+  ]);
+  const [wishlist, setWishlist] = useState([
+    {title: "1984"},
+    {title: "To Kill a Mockingbird"},
+  ]);
+  const [readingHistory, setReadingHistory] = useState([
+    {title: "The Hobbit", dateRead: "2024-05-20"},
+    {title: "The Secret Garden", dateRead: "2024-04-10"},
+  ]);
   // Mock user data - replace with actual user data retrieval
   const userData = {
     name: "John Doe",
@@ -19,24 +36,25 @@ export default function UserDashboardPage() {
     userTier: "Premium",
   };
 
-  const issuedBooks = [
-    {title: "The Lord of the Rings", returnDate: "2024-08-01", fineWarning: false},
-    {title: "Pride and Prejudice", returnDate: "2024-07-25", fineWarning: true},
-  ];
+  useEffect(() => {
+    setOpen(false);
+  }, [setOpen]);
 
-  const wishlist = [
-    {title: "1984"},
-    {title: "To Kill a Mockingbird"},
-  ];
+  const handleReturnBook = (title: string) => {
+    setIssuedBooks(currentBooks => currentBooks.filter(book => book.title !== title));
+  };
 
-  const readingHistory = [
-    {title: "The Hobbit", dateRead: "2024-05-20"},
-    {title: "The Secret Garden", dateRead: "2024-04-10"},
-  ];
+  const handleRenewBook = (title: string) => {
+    setIssuedBooks(currentBooks =>
+      currentBooks.map(book =>
+        book.title === title ? {...book, returnDate: '2024-09-01'} : book
+      )
+    );
+  };
 
   return (
     <div className="container mx-auto py-10">
-      <Card>
+      <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 shadow-xl">
         <CardHeader>
           <CardTitle className="text-2xl">Member Area</CardTitle>
           <CardDescription>Welcome to your personalized dashboard.</CardDescription>
@@ -52,30 +70,33 @@ export default function UserDashboardPage() {
           {/* My Issued Books Section */}
           <div className="grid gap-2">
             <h3 className="text-lg font-semibold">📚 My Issued Books</h3>
-            {issuedBooks.length > 0 ? (
-              <ul className="list-disc pl-5">
-                {issuedBooks.map((book, index) => (
-                  <li key={index} className="flex items-center justify-between">
-                    <span>
-                      {book.title} - Return Date: {book.returnDate}
-                      {book.fineWarning && (
-                        <span className="text-red-500"> - Fine Warning!</span>
-                      )}
-                    </span>
-                    <div>
-                      <Button variant="outline" size="sm">
-                        Return
-                      </Button>
-                      <Button variant="secondary" size="sm">
-                        Renew
-                      </Button>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>No books currently issued.</p>
-            )}
+            <div className="w-full">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-[200px]">Book</TableHead>
+                    <TableHead>Return Date</TableHead>
+                    <TableHead className="text-right">Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {issuedBooks.map((book) => (
+                    <TableRow key={book.title}>
+                      <TableCell className="font-medium">{book.title}</TableCell>
+                      <TableCell>{book.returnDate}</TableCell>
+                      <TableCell className="text-right">
+                        <Button variant="outline" size="sm" onClick={() => handleReturnBook(book.title)}>
+                          Return
+                        </Button>
+                        <Button variant="secondary" size="sm" onClick={() => handleRenewBook(book.title)}>
+                          Renew
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
           </div>
 
           {/* Wishlist Section */}
