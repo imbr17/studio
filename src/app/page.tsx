@@ -103,10 +103,47 @@ export default function Home() {
     <div className="container mx-auto py-10">
       <Card className="bg-gradient-to-br from-blue-100 to-green-50 shadow-xl">
         <CardHeader>
-          <div className="flex justify-between items-center">
-            <CardTitle className="text-2xl font-bold text-gray-800">
+          {/* Hero Section */}
+          <div className="text-center">
+            <CardTitle className="text-3xl font-bold text-gray-800">
               Welcome to Adjust Library! 📚
             </CardTitle>
+            <CardDescription className="text-md text-gray-600">
+              Unlock the Knowledge of the World. Happy reading! 😊
+            </CardDescription>
+
+            {/* Search Bar */}
+            <div className="relative mt-6">
+              <Input
+                type="search"
+                placeholder="Quick Search for books..."
+                value={searchQuery}
+                onChange={handleSearchChange}
+                className="rounded-full shadow-md"
+              />
+              <Icons.search className="absolute top-3 right-3 h-5 w-5 text-gray-500"/>
+            </div>
+
+            {/* Call to Action Buttons */}
+            <div className="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+              <Link href="/admin/login">
+                <Button variant="outline" size="lg" className="rounded-full text-sm">
+                  🔐 admin login
+                </Button>
+              </Link>
+              <Link href="/user/login">
+                <Button variant="outline" size="lg" className="rounded-full text-sm">
+                  👤 member login
+                </Button>
+              </Link>
+              <Link href="/books">
+                <Button variant="outline" size="lg" className="rounded-full text-sm">
+                  📄 explore books
+                </Button>
+              </Link>
+            </div>
+          </div>
+          <div className="flex justify-between items-center">
             <TooltipProvider>
               <div className="flex items-center space-x-2">
                 <Tooltip>
@@ -122,22 +159,8 @@ export default function Home() {
               </div>
             </TooltipProvider>
           </div>
-          <CardDescription className="text-md text-gray-600">
-            Your gateway to a world of books and knowledge. Happy reading! 😊
-          </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-6">
-          {/* Smart Search Bar */}
-          <div className="relative">
-            <Input
-              type="search"
-              placeholder="Quick Search for books..."
-              value={searchQuery}
-              onChange={handleSearchChange}
-              className="rounded-full shadow-md"
-            />
-            <Icons.search className="absolute top-3 right-3 h-5 w-5 text-gray-500"/>
-          </div>
 
           {/* Top Categories / Genres Section */}
           <div>
@@ -232,3 +255,4 @@ export default function Home() {
     </div>
   );
 }
+
