@@ -77,8 +77,6 @@ export default function Home({}: HomePageProps) {
   const [totalBooks, setTotalBooks] = useState(1234);
   const [activeMembers, setActiveMembers] = useState(567);
   const [dailyIssued, setDailyIssued] = useState(89);
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const [carouselIndex, setCarouselIndex] = useState(0);
   const [categoryFilter, setCategoryFilter] = useState("");
   const [authorFilter, setAuthorFilter] = useState("");
   const [yearFilter, setYearFilter] = useState("");
@@ -121,33 +119,6 @@ export default function Home({}: HomePageProps) {
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
     document.documentElement.classList.toggle("dark");
-  };
-
-  // Carousel Functionality
-  useEffect(() => {
-    const timer = setInterval(() => {
-      if (carouselRef.current) {
-        const nextIndex = (carouselIndex + 1) % featuredBooks.length;
-        setCarouselIndex(nextIndex);
-        carouselRef.current.scrollTo({
-          left: nextIndex * carouselRef.current.offsetWidth,
-          behavior: 'smooth',
-        });
-      }
-    }, 5000);
-
-    return () => clearInterval(timer);
-  }, [carouselIndex]);
-
-  const handleManualScroll = (direction: number) => {
-    if (carouselRef.current) {
-      const newIndex = (carouselIndex + direction + featuredBooks.length) % featuredBooks.length;
-      setCarouselIndex(newIndex);
-      carouselRef.current.scrollTo({
-        left: newIndex * carouselRef.current.offsetWidth,
-        behavior: 'smooth',
-      });
-    }
   };
 
   return (
@@ -336,13 +307,12 @@ export default function Home({}: HomePageProps) {
           <h3 className="text-lg font-semibold mb-2 text-gray-700">New Arrivals ✨</h3>
           <div className="relative">
             <div
-              ref={carouselRef}
-              className="flex gap-4 overflow-x-auto scroll-smooth snap-x"
+              className="flex gap-4 overflow-x-auto"
             >
               {featuredBooks.map((book, index) => (
                 <div
                   key={book.id}
-                  className="w-64 flex-shrink-0 rounded-md shadow-md overflow-hidden hover:scale-105 transition-transform snap-start relative"
+                  className="w-64 flex-shrink-0 rounded-md shadow-md overflow-hidden relative"
                 >
                   <img
                     src={book.imageUrl}
@@ -360,17 +330,6 @@ export default function Home({}: HomePageProps) {
                   </div>
                 </div>
               ))}
-            </div>
-            {/* Manual scroll buttons */}
-            <div className="absolute top-1/2 transform -translate-y-1/2 left-2">
-              <Button variant="ghost" size="icon" onClick={() => handleManualScroll(-1)}>
-                <Icons.arrowRight className="h-6 w-6 rotate-180"/>
-              </Button>
-            </div>
-            <div className="absolute top-1/2 transform -translate-y-1/2 right-2">
-              <Button variant="ghost" size="icon" onClick={() => handleManualScroll(1)}>
-                <Icons.arrowRight className="h-6 w-6"/>
-              </Button>
             </div>
           </div>
         </div>
