@@ -103,6 +103,11 @@ export default function Home() {
     document.documentElement.classList.toggle("dark");
   };
 
+  useEffect(() => {
+    // Set initial date only on client-side
+    setLastUpdated(new Date());
+  }, []);
+
   return (
     <div className="container mx-auto py-10">
       <Card className="bg-gradient-to-br from-blue-100 to-green-50 shadow-xl">
@@ -263,5 +268,6 @@ export default function Home() {
     </div>
   );
 }
+
 
 
