@@ -58,9 +58,14 @@ export default function RootLayout({
                   🔑 Admin Login
                 </Button>
               </Link>
-              <Link href="/user/dashboard" passHref legacyBehavior>
+              <Link href="/user/login" passHref legacyBehavior>
                 <Button variant="ghost" size="sm">
-                  👤 Member Area
+                  👤 Member Login
+                </Button>
+              </Link>
+              <Link href="/user/register" passHref legacyBehavior>
+                <Button variant="ghost" size="sm">
+                  ✨ Member Sign Up
                 </Button>
               </Link>
               {/*<Button variant="ghost" size="sm">
@@ -114,10 +119,18 @@ export default function RootLayout({
                       </Link>
                     </SidebarMenuItem>
                     <SidebarMenuItem>
-                      <Link href="/user/dashboard" passHref legacyBehavior>
+                      <Link href="/user/login" passHref legacyBehavior>
                         <SidebarMenuButton>
                           <Icons.user className="mr-2 h-4 w-4" />
                           <span>Member Area</span>
+                        </SidebarMenuButton>
+                      </Link>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <Link href="/user/register" passHref legacyBehavior>
+                        <SidebarMenuButton>
+                          <Icons.plusCircle className="mr-2 h-4 w-4" />
+                          <span>Member Sign Up</span>
                         </SidebarMenuButton>
                       </Link>
                     </SidebarMenuItem>
@@ -132,3 +145,4 @@ export default function RootLayout({
     </html>
   );
 }
+
