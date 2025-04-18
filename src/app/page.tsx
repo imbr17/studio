@@ -73,7 +73,6 @@ export default function Home() {
   const [totalBooks, setTotalBooks] = useState(1234);
   const [activeMembers, setActiveMembers] = useState(567);
   const [dailyIssued, setDailyIssued] = useState(89);
-  const [lastUpdatedClient, setLastUpdatedClient] = useState(''); // Client-side state
   const lastUpdated = Date.now();
   const [carouselIndex, setCarouselIndex] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -149,10 +148,7 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {
-    // Format the date on the client-side
-    setLastUpdatedClient(new Date(lastUpdated).toLocaleDateString() + ' ' + new Date(lastUpdated).toLocaleTimeString());
-  }, [lastUpdated]);
+  const lastUpdatedClient = new Date(lastUpdated).toLocaleDateString() + ' ' + new Date(lastUpdated).toLocaleTimeString();
 
   return (
     <div className="container mx-auto py-10">
@@ -394,3 +390,4 @@ export default function Home() {
     </div>
   );
 }
+
