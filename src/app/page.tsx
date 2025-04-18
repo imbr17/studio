@@ -324,7 +324,7 @@ export default function Home({}: HomePageProps) {
           </div>
             {/* Last Updated */}
             <div className="text-sm text-gray-500">
-              Last Updated: {lastUpdated.toLocaleDateString()} {lastUpdated.toLocaleTimeString()}
+              Last Updated: {new Date().toLocaleDateString()} {new Date().toLocaleTimeString()}
             </div>
 
           {/* Quick Links */}
@@ -398,4 +398,3 @@ export default function Home({}: HomePageProps) {
     </div>
   );
 }
-
