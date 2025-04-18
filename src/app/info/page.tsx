@@ -36,20 +36,21 @@ export default function LibraryInfoPage() {
           <section>
             <h2 className="text-lg font-semibold flex items-center gap-2">
               <History className="h-5 w-5" />
-              About Adjust Library
+              About ADUST Library
             </h2>
             <Separator className="my-2" />
             <p className="text-gray-700">
-              Founded in 1950, Adjust Library has been a cornerstone of
-              knowledge and culture for generations. Our mission is to provide
-              access to a wide range of resources and promote lifelong learning
-              within our community.
+              Establishment: Founded in 2004, the ADUST Library has been serving
+              the information and research needs of students and faculty members.
             </p>
-            {/* Vision Statement */}
-            <p className="text-gray-700 mt-2">
-              Our vision is to be a leading center for information, innovation,
-              and community engagement, fostering intellectual curiosity and
-              supporting personal growth.
+            <p className="text-gray-700">
+              Collection: Over 30,000+ books, 1,000+ e-books, 600+ print
+              periodicals, and 1,500+ theses/reports.
+            </p>
+            <p className="text-gray-700">
+              Services: Reading rooms, reference services, e-books &amp;
+              e-journals access, internet facilities, lending services, and
+              Wi-Fi connectivity.
             </p>
           </section>
 
