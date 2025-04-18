@@ -25,7 +25,7 @@ export default function LibrarianInfoPage() {
       name: "Doraemon",
       role: "Head Librarian",
       shiftTime: "Monday to Friday, 9:00 AM – 5:00 PM",
-      imageUrl: "/doraemon.png", // Ensure this path is correct
+      imageUrl: "https://picsum.photos/id/237/200/300", // Ensure this path is correct
       color: "#1E90FF", // Blue
     },
     {
@@ -33,7 +33,7 @@ export default function LibrarianInfoPage() {
       name: "Nobita Nobi",
       role: "Assists with book cataloging",
       shiftTime: "Monday to Friday, 10:00 AM – 4:00 PM",
-      imageUrl: "/nobita.png", // Ensure this path is correct
+      imageUrl: "https://picsum.photos/id/238/200/300", // Ensure this path is correct
       color: "#FFD700", // Yellow
     },
     {
@@ -41,7 +41,7 @@ export default function LibrarianInfoPage() {
       name: "Shizuka Minamoto",
       role: "Coordinates library events",
       shiftTime: "Monday to Friday, 11:00 AM – 5:00 PM",
-      imageUrl: "/shizuka.png", // Ensure this path is correct
+      imageUrl: "https://picsum.photos/id/239/200/300", // Ensure this path is correct
       color: "#FF69B4", // Pink
     },
   ];
@@ -84,3 +84,4 @@ export default function LibrarianInfoPage() {
     </div>
   );
 }
+
