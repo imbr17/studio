@@ -17,28 +17,30 @@ export default function Home() {
     <div className="container mx-auto py-10">
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">Welcome to Adjust Library</CardTitle>
+          <div className="flex justify-between items-center">
+            <CardTitle className="text-2xl">Welcome to Adjust Library</CardTitle>
+            <div className="flex flex-wrap gap-2">
+              <Link href="/info">
+                <Button size="sm">{`library info`}</Button>
+              </Link>
+              <Link href="/books">
+                <Button size="sm">{`book catalog`}</Button>
+              </Link>
+              <Link href="/librarians">
+                <Button size="sm">{`librarian info`}</Button>
+              </Link>
+              <Link href="/user/login">
+                <Button variant="outline" size="sm">{`user login`}</Button>
+              </Link>
+              <Link href="/admin/login">
+                <Button variant="secondary" size="sm">{`admin login`}</Button>
+              </Link>
+            </div>
+          </div>
           <CardDescription>Your gateway to a world of books and knowledge.</CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">
           <p>Explore our collection and discover new adventures in reading.</p>
-          <div className="flex flex-wrap gap-4">
-            <Link href="/info">
-              <Button>Library Info</Button>
-            </Link>
-            <Link href="/books">
-              <Button>Book Catalog</Button>
-            </Link>
-            <Link href="/librarians">
-              <Button>Librarian Info</Button>
-            </Link>
-            <Link href="/user/login">
-              <Button variant="outline">User Login</Button>
-            </Link>
-            <Link href="/admin/login">
-              <Button variant="secondary">Admin Login</Button>
-            </Link>
-          </div>
         </CardContent>
       </Card>
     </div>
