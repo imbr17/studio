@@ -61,6 +61,10 @@ export default function Home() {
   const [darkMode, setDarkMode] = useState(false);
   const [quote, setQuote] = useState(quotes[0]);
   const [testimonial, setTestimonial] = useState(testimonials[0]);
+  const [totalBooks, setTotalBooks] = useState(1234);
+  const [activeMembers, setActiveMembers] = useState(567);
+  const [dailyIssued, setDailyIssued] = useState(89);
+  const [lastUpdated, setLastUpdated] = useState(new Date());
 
   useEffect(() => {
     setOpen(false);
@@ -193,21 +197,25 @@ export default function Home() {
               <CardHeader>
                 <CardTitle className="text-gray-700">Total Books 📚</CardTitle>
               </CardHeader>
-              <CardContent className="text-2xl font-bold text-green-800">1,234</CardContent>
+              <CardContent className="text-2xl font-bold text-green-800">{totalBooks}</CardContent>
             </Card>
             <Card className="bg-red-50 shadow-md hover:scale-105 transition-transform">
               <CardHeader>
                 <CardTitle className="text-gray-700">Active Members 🧑‍🎓</CardTitle>
               </CardHeader>
-              <CardContent className="text-2xl font-bold text-red-800">567</CardContent>
+              <CardContent className="text-2xl font-bold text-red-800">{activeMembers}</CardContent>
             </Card>
             <Card className="bg-blue-50 shadow-md hover:scale-105 transition-transform">
               <CardHeader>
                 <CardTitle className="text-gray-700">Daily Issued 📅</CardTitle>
               </CardHeader>
-              <CardContent className="text-2xl font-bold text-blue-800">89</CardContent>
+              <CardContent className="text-2xl font-bold text-blue-800">{dailyIssued}</CardContent>
             </Card>
           </div>
+            {/* Last Updated */}
+            <div className="text-sm text-gray-500">
+              Last Updated: {lastUpdated.toLocaleTimeString()}
+            </div>
 
           {/* Quick Links */}
           <div>
@@ -255,4 +263,5 @@ export default function Home() {
     </div>
   );
 }
+
 
