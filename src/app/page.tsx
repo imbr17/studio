@@ -8,6 +8,13 @@ import {useEffect, useRef, useState} from "react";
 import {Input} from "@/components/ui/input";
 import {Icons} from "@/components/icons";
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 // Placeholder data for categories and featured books
 const categories = [
@@ -66,9 +73,14 @@ export default function Home() {
   const [totalBooks, setTotalBooks] = useState(1234);
   const [activeMembers, setActiveMembers] = useState(567);
   const [dailyIssued, setDailyIssued] = useState(89);
-  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  const [lastUpdated, setLastUpdated] = useState(new Date());
   const [carouselIndex, setCarouselIndex] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
+  const [categoryFilter, setCategoryFilter] = useState("");
+  const [authorFilter, setAuthorFilter] = useState("");
+  const [yearFilter, setYearFilter] = useState("");
+  const [ratingFilter, setRatingFilter] = useState("");
+  const [availabilityFilter, setAvailabilityFilter] = useState("");
 
   useEffect(() => {
     setOpen(false);
@@ -107,11 +119,6 @@ export default function Home() {
     document.documentElement.classList.toggle("dark");
   };
 
-  useEffect(() => {
-    // Set initial date only on client-side
-    setLastUpdated(new Date());
-  }, []);
-
   // Carousel Functionality
   useEffect(() => {
     const timer = setInterval(() => {
@@ -139,7 +146,6 @@ export default function Home() {
     }
   };
 
-
   return (
     <div className="container mx-auto py-10">
       <Card className="bg-gradient-to-br from-blue-100 to-green-50 shadow-xl">
@@ -163,6 +169,61 @@ export default function Home() {
                 className="rounded-full shadow-md"
               />
               <Icons.search className="absolute top-3 right-3 h-5 w-5 text-gray-500"/>
+            </div>
+
+            {/* Advanced Search Filters */}
+            <div className="mt-4 flex flex-wrap justify-center gap-2">
+              <Select onValueChange={setCategoryFilter}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Category"/>
+                </SelectTrigger>
+                <SelectContent>
+                  {categories.map((category) => (
+                    <SelectItem key={category.name} value={category.name}>
+                      {category.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              <Input
+                type="text"
+                placeholder="Author"
+                value={authorFilter}
+                onChange={(e) => setAuthorFilter(e.target.value)}
+                className="rounded-md shadow-sm"
+              />
+
+              <Input
+                type="number"
+                placeholder="Year"
+                value={yearFilter}
+                onChange={(e) => setYearFilter(e.target.value)}
+                className="rounded-md shadow-sm"
+              />
+
+              <Select onValueChange={setRatingFilter}>
+                <SelectTrigger className="w-[120px]">
+                  <SelectValue placeholder="Rating"/>
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="1">1 Star</SelectItem>
+                  <SelectItem value="2">2 Stars</SelectItem>
+                  <SelectItem value="3">3 Stars</SelectItem>
+                  <SelectItem value="4">4 Stars</SelectItem>
+                  <SelectItem value="5">5 Stars</SelectItem>
+                </SelectContent>
+              </Select>
+
+              <Select onValueChange={setAvailabilityFilter}>
+                <SelectTrigger className="w-[150px]">
+                  <SelectValue placeholder="Availability"/>
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="inStock">In Stock</SelectItem>
+                  <SelectItem value="outOfStock">Out of Stock</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             {/* Call to Action Buttons */}
@@ -251,7 +312,7 @@ export default function Home() {
           </div>
             {/* Last Updated */}
             <div className="text-sm text-gray-500">
-              Last Updated: {lastUpdated?.toLocaleDateString()} {lastUpdated?.toLocaleTimeString()}
+              Last Updated: {lastUpdated.toLocaleDateString()} {lastUpdated.toLocaleTimeString()}
             </div>
 
           {/* Quick Links */}
