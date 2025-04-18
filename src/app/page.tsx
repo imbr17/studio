@@ -66,7 +66,7 @@ export default function Home() {
   const [totalBooks, setTotalBooks] = useState(1234);
   const [activeMembers, setActiveMembers] = useState(567);
   const [dailyIssued, setDailyIssued] = useState(89);
-  const [lastUpdated, setLastUpdated] = useState(new Date());
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [carouselIndex, setCarouselIndex] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
 
@@ -251,7 +251,7 @@ export default function Home() {
           </div>
             {/* Last Updated */}
             <div className="text-sm text-gray-500">
-              Last Updated: {lastUpdated.toLocaleDateString()} {lastUpdated.toLocaleTimeString()}
+              Last Updated: {lastUpdated?.toLocaleDateString()} {lastUpdated?.toLocaleTimeString()}
             </div>
 
           {/* Quick Links */}
